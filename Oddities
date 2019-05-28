@@ -1,0 +1,6 @@
+gIsHappyTest3 —  Assert.assertTrue(actual); // but input: ”xxggyygxx" — that 3rd ‘g’ has no neighboring ‘g’s, and according to the example in the java doc for this method, ‘gHappy("xxggyygxx") // Should return  false’
+
+equalIsNotTest1 — Assert.assertTrue(actual); // but input: "This is not" contains 2 * ‘is’ and only 1 * ‘not’, and according to the example in the java doc, ‘containsEqualNumberOfIsAndNot("This is not")  // Should return false’
+
+equalIsNotTest2 — Assert.assertFalse(actual) // but input: "This is notnot"
+ contains 2 * ‘is’ and 2 * ‘not’, and according to the example in the java doc, ’containsEqualNumberOfIsAndNot("This is notnot") // Should return true’
