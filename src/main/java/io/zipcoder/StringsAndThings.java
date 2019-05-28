@@ -1,5 +1,5 @@
 package io.zipcoder;
-
+import java.util.ArrayList;
 
 /**
  * @author tariq
@@ -15,7 +15,39 @@ public class StringsAndThings {
      *           countYZ("day fyyyz"); // Should return 2
      */
     public Integer countYZ(String input){
-        return null;
+        Integer counter=0;
+        input=input.toLowerCase().trim();
+        ArrayList<String> words = new ArrayList<>();
+      /*  while (input.length()>0) {
+            for (int i = 0; i < input.length(); i++) {
+                if(!Character.isLetter(input.charAt(i))) {
+                    words.add(input.substring(0, i));
+
+                   if (input.length() > i + 1) input = input.substring(i + 1);
+                    else input = "";
+                    i = 0;
+                    while(input.length()>1&&!Character.isLetter(input.charAt(0))) input=input.substring(1);
+                    if (input.length()==1){
+                        if (Character.isLetter(input.charAt(0))) words.add(input);
+                        input="";
+                    }
+                }
+            }
+            */
+        while(input.length()>1&&!Character.isLetter(input.charAt(0))) input=input.substring(1);
+        for (int i = 0; i < input.length(); i++) {
+            if (!Character.isLetter(input.charAt(i))) {
+                words.add(input.substring(0, i));
+                this.countYZ(input.substring(i+1));
+            }
+        }
+        words.add(input);
+        input="";
+       // }
+        for (String thisOne: words) {
+            if(thisOne.charAt(thisOne.length()-1)=='y'||thisOne.charAt(thisOne.length()-1)=='z')counter++;
+        }
+        return counter;
     }
 
     /**
@@ -28,9 +60,19 @@ public class StringsAndThings {
      *           removeString("Hello there", "x") // Should return "Hello there"
      */
     public String removeString(String base, String remove){
-        return null;
-    }
+        for(int i=0; i<base.length()-remove.length()+1;i++){
+            if(base.substring(i,i+remove.length()).toLowerCase().equals(remove.toLowerCase())){
+                base = base.substring(0,i)+base.substring(i+remove.length());
+                i=0; // this line might not be needed depending on my question below about creating new instances of remove
+            }
+        }
 
+        return base;
+    }
+/* I wasn't sure from the requirements whether or not we should re-evaluate the base string to see if any new instances of remove
+    are created.  For example, given: removeString("My nanameme is Jeff", "name") // would we want it to return "My name is Jeff"
+    or would we want it to return "My  is Jeff"?
+ */
     /**
      * Given a string, return true if the number of appearances of "is" anywhere in the string is equal
      * to the number of appearances of "not" anywhere in the string (case sensitive)
@@ -40,7 +82,14 @@ public class StringsAndThings {
      *           containsEqualNumberOfIsAndNot("noisxxnotyynotxisi") // Should return true
      */
     public Boolean containsEqualNumberOfIsAndNot(String input){
-        return null;
+        input=input.toLowerCase().trim();
+        Integer isCounter=0, notCounter=0;
+        for(int i=0;i<input.length()-2;i++) {
+            if(input.substring(i,i+2).equals("is")) isCounter++;
+            else if (input.substring(i,i+3).equals("not")) notCounter++;
+        }
+        if(input.substring(input.length()-1).equals("is")) isCounter++;
+        return isCounter==notCounter;
     }
 
     /**
@@ -51,7 +100,15 @@ public class StringsAndThings {
      *           gHappy("xxggyygxx") // Should return  false
      */
     public Boolean gIsHappy(String input){
-        return null;
+        //input = input.toLowerCase(); // un-comment this line to make the method case-insensitive
+        if (input.length()<1) return true;
+        if (input.length()==1) return input.charAt(0)!='g';
+        if (input.charAt(0)=='g'&&input.charAt(1)!='g') return false;
+        if(input.charAt(input.length()-1)=='g'&&input.charAt(input.length()-2)!='g')return false;
+        for(int i=1;i<input.length()-2;i++) {
+            if (input.charAt(i)=='g' && input.charAt(i-1)!='g' && input.charAt(i+1)!='g')return false;
+        }
+        return true;
     }
 
 
@@ -63,6 +120,11 @@ public class StringsAndThings {
      *            countTriple("a") // Should return 0
      */
     public Integer countTriple(String input){
-        return null;
+        //input = input.toLowerCase(); // un-comment this line to make the method case-insensitive
+        Integer counter=0;
+        for(int i=0; i<input.length()-2;i++){
+            if(input.charAt(i)==input.charAt(i+1)&&input.charAt(i)==input.charAt(i+2))counter++;
+        }
+        return counter;
     }
 }
